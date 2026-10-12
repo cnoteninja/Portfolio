@@ -52,6 +52,15 @@ troubleshooting · Ticketing & escalation
 - **`subnet-scan.py`** — threaded ping sweep of a subnet with reverse-DNS
   hostnames. Maps a VLAN in seconds. Stdlib only, no dependencies.
 - **`devices.csv`** — sample device inventory used by the Python scripts.
+- **`Test-CertExpiry.ps1`** — checks SSL certificate expiry dates on your
+  hosts before they become outages. Warns under 30 days (tunable), flags the
+  already-expired in red.
+- **`Get-DiskReport.ps1`** — disk space across multiple servers via CIM in one
+  shot. Green/yellow/red at your thresholds — the report that prevents 2 AM
+  disk-full pages.
+- **`Get-LocalAdminAudit.ps1`** — lists local Administrators group membership
+  per server. Stale admin rights are a security finding waiting to happen;
+  read-only, review and trim.
 
 ## Contact
 
