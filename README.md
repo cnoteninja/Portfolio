@@ -35,6 +35,15 @@ troubleshooting · Ticketing & escalation
 - **`Repair-Workstation.ps1`** — the service-desk greatest hits: restart the
   print spooler, flush DNS, clear temp files, and report disk space. Run
   elevated; reboot if issues persist.
+- **`Test-ServerPorts.ps1`** — the morning "is everything up?" board: tests
+  TCP connectivity to your critical servers and ports with a fast timeout, or
+  reads the list from a CSV. Green UP / red DOWN at a glance.
+- **`Find-StaleADUsers.ps1`** — AD hygiene report: disabled accounts, locked-out
+  users, accounts inactive 90+ days, and passwords set to never expire.
+  Read-only; requires the RSAT ActiveDirectory module.
+- **`Clear-OldLogs.ps1`** — reclaims disk by zipping log files older than N days
+  into a dated archive and removing the originals. Defaults to -WhatIf preview
+  so nothing happens until you say so.
 
 ## Contact
 
