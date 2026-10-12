@@ -44,6 +44,14 @@ troubleshooting · Ticketing & escalation
 - **`Clear-OldLogs.ps1`** — reclaims disk by zipping log files older than N days
   into a dated archive and removing the originals. Defaults to -WhatIf preview
   so nothing happens until you say so.
+- **`backup-configs.py`** — pulls running configs from every Cisco IOS device in
+  your inventory CSV over SSH and saves timestamped backups. Requires netmiko;
+  credentials are prompted, never stored.
+- **`ios-batch.py`** — runs any show command across all devices and saves
+  per-device output. "Which switches have VLAN 40?" in one command.
+- **`subnet-scan.py`** — threaded ping sweep of a subnet with reverse-DNS
+  hostnames. Maps a VLAN in seconds. Stdlib only, no dependencies.
+- **`devices.csv`** — sample device inventory used by the Python scripts.
 
 ## Contact
 
