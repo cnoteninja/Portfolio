@@ -1,0 +1,47 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>Site Readiness — Demo Site - Floor 2 (SYNTHETIC DATA)</title>
+<style>body{font-family:system-ui,sans-serif;max-width:900px;margin:2em auto;padding:0 1em}
+.ok{background:#d4edda;padding:1em;border-radius:8px}.bad{background:#f8d7da;padding:1em;border-radius:8px}
+.warn{background:#fff3cd;padding:1em;border-radius:8px}
+.exec{background:#eef4ff;border:1px solid #c8d9f5;padding:1em 1.2em;border-radius:8px;margin:1.5em 0}
+.exec h2{margin-top:.2em}.areas{list-style:none;padding-left:0}.areas li{margin:.4em 0}
+.m-pass{color:#155724;font-weight:bold}.m-warn{color:#856404;font-weight:bold}
+.m-fail{color:#721c24;font-weight:bold}.m-info{color:#0c5460;font-weight:bold}
+.fix{font-size:.92em;color:#5a1a1a}.fwd{color:#444}
+table{border-collapse:collapse;width:100%;margin:.5em 0}th,td{border:1px solid #ddd;padding:.4em .6em;text-align:left}
+th{background:#f5f5f5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:1em}</style>
+</head><body>
+<h1>Site Readiness Report</h1><p><b>Site:</b> Demo Site - Floor 2 (SYNTHETIC DATA) &nbsp; <b>When:</b> 2026-10-15T19:48:54Z &nbsp;
+<b>Tech host:</b> demo-laptop</p>
+<section class="exec">
+<h2>Executive summary</h2>
+<div class="warn"><b>Verdict: Ready with caveats</b><br>Usable, but the issues below should be fixed or noted before handoff.</div>
+<p><b>Voice:</b> Not recommended for voice calls until the issues below are fixed (estimated call quality MOS 3.12, target is 3.6+).</p>
+<p><b>Internet:</b> Good (45.2 Mbps) - comfortable for typical office work.</p>
+<h3>Check by check, in plain English</h3>
+<ul class="areas"><li><span class='m-pass'>✓</span> <b>Wall jack:</b> The wall jack is live - this machine got IP 10.1.5.23.</li><li><span class='m-pass'>✓</span> <b>Router:</b> The local router answers quickly (1.8 ms average, no packet loss).</li><li><span class='m-warn'>!</span> <b>Name lookups:</b> Name lookups mostly work, but cloudflare.com failed - some sites may not load.</li><li><span class='m-info'>•</span> <b>Port scan:</b> 2 of 8 common ports on the router answered (443, 9100).</li><li><span class='m-fail'>✗</span> <b>Voice calls:</b> Voice calls will likely sound choppy or drop (estimated score 3.12 out of 5; target is 3.6+).</li><li><span class='m-info'>•</span> <b>Wi-Fi nearby:</b> 3 wireless network(s) visible; strongest is &#x27;Client-Guest&#x27;.</li><li><span class='m-pass'>✓</span> <b>Internet speed:</b> Good (45.2 Mbps) - comfortable for typical office work.</li></ul>
+<p class="fwd"><i>Safe to forward to a client or manager as-is - technical
+detail follows below.</i></p>
+</section>
+<div class='bad'><b>2 ISSUE(S)</b><ul><li>DNS failed for cloudflare.com.<br><span class='fix'><b>How to fix:</b> Set a known-good DNS server (8.8.8.8) temporarily and re-run. If that fixes it, the site&#x27;s configured DNS server is the problem - report it to the site&#x27;s IT.</span></li><li>VoIP check failed (jitter 42.3 ms, loss 2.5%, MOS 3.12).<br><span class='fix'><b>How to fix:</b> Voice quality is below target (jitter &lt; 30 ms, loss &lt; 1%, MOS &gt;= 3.6). Enable QoS / DSCP EF prioritization for voice on the site router, make sure nothing was hogging bandwidth during the test, and re-run at a quiet time. If it still fails, the ISP link may need an upgrade.</span></li></ul></div>
+<h2>Network</h2>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>Local IP</td><td>10.1.5.23</td></tr>
+<tr><td>Gateway</td><td>10.1.5.1</td></tr>
+<tr><td>Gateway ping</td><td>1.8 ms avg, 0% loss</td></tr>
+<tr><td>DNS servers</td><td>10.1.5.1, 8.8.8.8</td></tr>
+<tr><td>Download speed</td><td>45.2 Mbps</td></tr></table>
+<h2>DNS resolution</h2><table><tr><th>Domain</th><th>Status</th><th>Detail</th></tr><tr><td>google.com</td><td>OK</td><td>12.4 ms</td></tr><tr><td>cloudflare.com</td><td>FAIL</td><td>timed out</td></tr></table>
+<h2>Gateway ports</h2><table><tr><th>Port</th><th>Status</th><th>RTT</th></tr><tr><td>80</td><td>closed</td><td>-</td></tr><tr><td>443</td><td>OPEN</td><td>2.1 ms</td></tr><tr><td>22</td><td>closed</td><td>-</td></tr><tr><td>3389</td><td>closed</td><td>-</td></tr><tr><td>9100</td><td>OPEN</td><td>1.9 ms</td></tr><tr><td>515</td><td>closed</td><td>-</td></tr><tr><td>631</td><td>closed</td><td>-</td></tr><tr><td>161</td><td>closed</td><td>-</td></tr></table>
+<h2>VoIP readiness</h2><div class='bad'><b>VoIP: FAIL</b></div>
+<table><tr><th>Metric</th><th>Measured</th><th>Target</th></tr>
+<tr><td>Target</td><td>10.1.5.1:443</td><td>-</td></tr>
+<tr><td>Latency (avg RTT)</td><td>28.6 ms</td><td>-</td></tr>
+<tr><td>Jitter</td><td>42.3 ms</td><td>&lt; 30 ms</td></tr>
+<tr><td>Packet loss</td><td>2.5%</td><td>&lt; 1%</td></tr>
+<tr><td>Estimated MOS</td><td>3.12</td><td>&ge; 3.6</td></tr></table>
+<p><small>Method: jitter/loss approximated from repeated small-payload TCP
+round-trips (stdlib only — no UDP echo). MOS via simplified E-model; see README.</small></p>
+<h2>Visible Wi-Fi (top 15)</h2><table><tr><th>SSID</th><th>Signal</th></tr><tr><td>Client-Guest</td><td>82%</td></tr><tr><td>Client-Corp</td><td>74%</td></tr><tr><td>xfinitywifi</td><td>41%</td></tr></table>
+<p><small>Generated by <a href="https://github.com/cnoteninja/site-readiness">site-readiness</a></small></p>
+</body></html>

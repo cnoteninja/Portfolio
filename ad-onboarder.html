@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AD Onboarder — Demo Walkthrough</title>
+<style>
+  :root { --bg:#0f1420; --card:#182032; --accent:#4da3ff; --text:#e8edf5; --muted:#9aa7bd; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.6; }
+  .wrap { max-width:820px; margin:0 auto; padding:32px 20px 64px; }
+  a { color:var(--accent); }
+  h1 { font-size:1.6rem; }
+  h2 { font-size:1.15rem; margin-top:28px; }
+  .card { background:var(--card); border:1px solid #243050; border-radius:12px; padding:20px; margin:16px 0; }
+  pre { background:#0a0e17; border:1px solid #243050; border-radius:8px; padding:14px; overflow-x:auto; font-size:.85rem; }
+  code { font-family:Consolas,Menlo,monospace; }
+  .note { background:#141c2e; border:1px dashed #31405f; border-radius:8px; padding:12px 16px; color:var(--muted); font-size:.9rem; }
+  ul { padding-left:20px; } li { margin-bottom:6px; }
+  .back { display:inline-block; margin-bottom:16px; text-decoration:none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="index.html">← Back to toolkit</a>
+  <h1>AD Onboarder</h1>
+  <p>Automate Active Directory user onboarding and offboarding from the help desk — no more clicking through ADUC for every new hire and every departure.</p>
+
+  <div class="note">
+    <strong>About this demo:</strong> AD Onboarder is PowerShell and needs a Windows machine joined to a domain (ActiveDirectory module).
+    The full interactive demo (<code>New-DemoOnboarding.ps1</code>) runs there — it simulates three hires end-to-end and produces a styled HTML report.
+    Below is exactly what it runs on, so you can see the shape of it.
+  </div>
+
+  <h2>1. The input — <code>demo/demo-hires.csv</code></h2>
+  <div class="card">
+<pre><code>FirstName,LastName,EmployeeID,Title,Department,ManagerSam,TemplateSam,OU,Password,Email
+Maya,Thompson,2001,Help Desk Technician,IT Support,mbrown,template-helpdesk,,,
+Derek,Okafor,2002,Paralegal,Litigation,mbrown,template-paralegal,,,
+Sofia,Marsh,2003,Office Manager,Administration,mbrown,template-officemgr,,,</code></pre>
+  </div>
+
+  <h2>2. Run it</h2>
+  <div class="card">
+<pre><code># Preview first — always
+.\New-ADUser.ps1 -CsvPath .\demo\demo-hires.csv -WhatIf
+
+# For real
+.\New-ADUser.ps1 -CsvPath .\demo\demo-hires.csv
+
+# Or skip the CSV entirely for a single hire
+.\New-ADUser.ps1 -Interactive
+
+# Offboard someone (with rehire-safe group backup)
+.\Disable-ADUser.ps1 -SamAccountName jsmith -Ticket 'HD-4821'
+
+# Find dormant accounts (default: enabled, 45+ days since logon)
+.\Find-StaleADAccounts.ps1</code></pre>
+  </div>
+
+  <h2>3. What you get</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Onboarding:</strong> users created from the CSV, group memberships copied from a template user in the same role, unique usernames, generated temporary passwords, forced password change at first logon — everything logged.</li>
+      <li><strong>Offboarding:</strong> account disabled, group memberships stripped (protected groups kept), group list backed up for rehire, account moved to a Disabled Users OU, ticket reference stamped on the account.</li>
+      <li><strong>Audit:</strong> stale-account HTML report — enabled accounts dormant 45+ days, with recommended actions. Dormant accounts are how breaches start.</li>
+      <li><strong>Notifications:</strong> optional Slack/Teams webhook ping when a batch finishes.</li>
+      <li><strong>Safety:</strong> <code>-WhatIf</code> dry-run on every destructive path, plus a prerequisite checker and a first-run setup wizard.</li>
+    </ul>
+  </div>
+
+  <p><a href="https://github.com/cnoteninja/ad-onboarder">Source on GitHub →</a></p>
+</div>
+</body>
+</html>
